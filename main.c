@@ -1,16 +1,15 @@
 #include <msp430.h> 
 #include "ADCLibrary/sensors.h"
 #include "motors.h"
-#include "moving_average.h"
 
 int leftValues[5] = { 0 };
 int centerValues[5] = { 0 };
+int left;
 
 /*
  * main.c
  */
-int main(void) {
-	WDTCTL = WDTPW | WDTHOLD;	// Stop watchdog timer
+int main(void) {	WDTCTL = WDTPW | WDTHOLD;	// Stop watchdog timer
 
 	initPins();
 	initTimer();
@@ -18,35 +17,42 @@ int main(void) {
 
 	while (1) {
 
-//		addSample(getCenterSensor(), leftValues, 5);
-		if (getCenterSensor() > 0x346) {
-			stop();
+		// Works for 50% duty cycle.
+
+//		if (getCenterSensor() > 0x326) {
+//			turnRight();
+//			_delay_cycles(30000);
+//		} else if (getLeftSensor() > 0x3DD) {
+//			turnRight();
+//			_delay_cycles(1500);
+//		} else if (getLeftSensor() < 0x333) {
+//			TA0CCR1 = 30;
+//			moveLeftForward();
+//			moveRightForward();
+//			_delay_cycles(5000);
+//		} else {
+//			moveForward();
+//		}
+
+
+		left = getLeftSensor();
+
+		if (getCenterSensor() > 0x333) {
 			turnRight();
-			_delay_cycles(10000);
-			stop();
-		} else if (getLeftSensor() > 0x3DD) {
+			_delay_cycles(130000);
+		} else if (left > 0x3EE) {
 			turnRight();
-			_delay_cycles(3000);
-		} else if (getLeftSensor() < 0x1CC) {
-			TA0CCR1 = 30;
-			moveLeftForward();
-			moveRightForward();
-			_delay_cycles(10000);
+			_delay_cycles(4000);
+		} else if (left > 0x333 && left < 0x366) {
+			slightLeftTurn();
+			_delay_cycles(2000);
+		} else if (left <= 0x333) {
+			forwardLeftTurn();
+			_delay_cycles(2000);
 		} else {
 			moveForward();
 		}
 
-//		addSample(getCenterSensor(), centerValues, 5);
-
-//		if (getLeftSensor() > 0x386) {
-//			turnRight(100);
-//		} else {
-//			forwardLeft();
-//		}
-//
-//		if (getCenterSensor() > 0x2DD) {
-//			turnRight(500);
-//		}
 	}
 
 }

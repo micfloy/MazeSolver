@@ -26,8 +26,8 @@ void moveReverse();
 
 void turnLeft();
 
-void forwardLeft();
+void forwardLeftTurn();
 
-void forwardRight();
+void slightLeftTurn();
 
 #endif /* MOTORS_H_ */
