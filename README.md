@@ -1,13 +1,15 @@
 MazeSolver
 ==========
 
+A basic wall-following algorithm.
+
 #Description
 
-This program implements the ADC library as well as the Motor Driver library available on my github profile.
+  This program implements the ADC library as well as the Motor Driver library available on my github profile.
 The purpose of the program is to navigate a two-wheeled robot with three IR sensors around a maze without 
 hitting the walls.
 
-The program uses a left-wall-following algorithm.  If the left IR sensor reads a voltage that is too high,
+  The program uses a left-wall-following algorithm.  If the left IR sensor reads a voltage that is too high,
 this means that the robot is too close to the wall and it steers away.  If the voltage drops too low, the robot will turn
 slightly left and get back on course.  If the voltage drops so low that the robot doesn't even see a wall, it will make a 
 sweeping left turn.  This is primarily intended to navigate left-hand turns.  It can occasionally create problems when 
