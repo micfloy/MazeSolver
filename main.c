@@ -8,6 +8,12 @@ int left;
 
 /*
  * main.c
+ *
+ * Author:  C2C Michael Bentley
+ *
+ * Date Created:  12/11/13
+ *
+ * Description:  This code will the ECE382, two-wheeled robot to navigate a sufficiently wide maze by following the left wall.
  */
 int main(void) {
 	WDTCTL = WDTPW | WDTHOLD;	// Stop watchdog timer
@@ -18,39 +24,23 @@ int main(void) {
 
 	while (1) {
 
-		// Works for 50% duty cycle.
 
-//		if (getCenterSensor() > 0x326) {
-//			turnRight();
-//			_delay_cycles(30000);
-//		} else if (getLeftSensor() > 0x3DD) {
-//			turnRight();
-//			_delay_cycles(1500);
-//		} else if (getLeftSensor() < 0x333) {
-//			TA0CCR1 = 30;
-//			moveLeftForward();
-//			moveRightForward();
-//			_delay_cycles(5000);
-//		} else {
-//			moveForward();
-//		}
-
-		left = getLeftSensor();
+		left = getLeftSensor();		// Variable prevents calling the left sensor multiple times in one loop.
 
 		if (getCenterSensor() > 0x322) {
 			turnRight();
-			_delay_cycles(150000);
+			_delay_cycles(150000);	// Much longer turns here prevent the robot from stuttering as it approaches a wall.
 		} else if (left > 0x322) {
 			turnRight();
-			_delay_cycles(1500);
-		} else if (left > 0x322 && left < 0x355) {
+			_delay_cycles(1500);	// Turning away from a side wall is generally a much smaller turn to keep the robot in the ideal distance window.
+		} else if (left > 0x322 && left < 0x355) {		// If the robot is only a little too far away from the wall it will turn slightly into the wall.
 			slightLeftTurn();
 			_delay_cycles(500);
-		} else if (left <= 0x333) {
+		} else if (left <= 0x333) {		// If the robot loses complete sight of the wall it starts a sweeping left turn.  This is for making left turns primarily.
 			forwardLeftTurn();
 			_delay_cycles(1000);
 		} else {
-			moveForward();
+			moveForward();	// If the robot is inside the optimal window from the wall, it will drive much faster in a straight line.
 		}
 
 	}
