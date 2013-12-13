@@ -130,7 +130,7 @@ void moveReverse() {
 // Duration is the length of the turn in clock cycles multiplied by 100.
 void turnRight() {
 
-	TA0CCR1 = 40;
+	TA0CCR1 = 50;
 	moveLeftForward();
 
 	moveRightReverse();
@@ -139,16 +139,16 @@ void turnRight() {
 
 void turnLeft() {
 
-	TA1CCR1 = 40;
+	TA1CCR1 = 50;
 	moveRightForward();
 
 	moveLeftReverse();
 }
 
 void forwardLeftTurn() {
-	TA0CCR1 = 30;
+	TA0CCR1 = 40;
 	moveLeftForward();
-	TA1CCR1 = 50;
+	TA1CCR1 = 70;
 	moveRightForward();
 
 //	TA1CCR1 = 20;
@@ -158,9 +158,9 @@ void forwardLeftTurn() {
 }
 
 void slightLeftTurn() {
-	TA0CCR1 = 35;
+	TA0CCR1 = 58;
 	moveLeftForward();
-	TA1CCR1 = 40;
+	TA1CCR1 = 70;
 	moveRightForward();
 }
 

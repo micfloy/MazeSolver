@@ -9,7 +9,8 @@ int left;
 /*
  * main.c
  */
-int main(void) {	WDTCTL = WDTPW | WDTHOLD;	// Stop watchdog timer
+int main(void) {
+	WDTCTL = WDTPW | WDTHOLD;	// Stop watchdog timer
 
 	initPins();
 	initTimer();
@@ -34,21 +35,20 @@ int main(void) {	WDTCTL = WDTPW | WDTHOLD;	// Stop watchdog timer
 //			moveForward();
 //		}
 
-
 		left = getLeftSensor();
 
-		if (getCenterSensor() > 0x333) {
+		if (getCenterSensor() > 0x322) {
 			turnRight();
-			_delay_cycles(130000);
-		} else if (left > 0x3EE) {
+			_delay_cycles(150000);
+		} else if (left > 0x322) {
 			turnRight();
-			_delay_cycles(4000);
-		} else if (left > 0x333 && left < 0x366) {
+			_delay_cycles(1500);
+		} else if (left > 0x322 && left < 0x355) {
 			slightLeftTurn();
-			_delay_cycles(2000);
+			_delay_cycles(500);
 		} else if (left <= 0x333) {
 			forwardLeftTurn();
-			_delay_cycles(2000);
+			_delay_cycles(1000);
 		} else {
 			moveForward();
 		}
